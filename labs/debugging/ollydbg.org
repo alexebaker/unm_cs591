@@ -1,0 +1,297 @@
+#+TITLE: Lab 1: Ollydbg 
+#+HTML_HEAD_EXTRA: <style>html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}body{width:95%;margin:2%;font:normal normal normal 16px/1.6em Helvetica,sans-serif;color:#333}@media (min-width:769px){body{width:700px;margin-left:5vw}}::-moz-selection{background:#d6edff}::selection{background:#d6edff}.title{margin:auto;color:#000}.subtitle,.title{text-align:center}.subtitle{font-size:medium;font-weight:700}.abstract{margin:auto;width:80%;font-style:italic}.abstract p:last-of-type:before{content:"    ";white-space:pre}.status{font-size:90%;margin:2em auto}[class^=section-number-]{margin-right:.5em}[id^=orgheadline]{clear:both}#footnotes{font-size:90%}.footpara{display:inline;margin:.2em auto}.footdef{margin-bottom:1em}.footdef sup{padding-right:.5em}a{color:#527d9a;text-decoration:none}a:hover{color:#035;border-bottom:1px dotted}figure{padding:0;margin:0;text-align:center}img{max-width:100%;vertical-align:middle}@media (min-width:769px){img{max-width:85vw;margin:auto}}.MathJax_Display{font-size:90%;margin:0!important;width:90%!important}h1,h2,h3,h4,h5,h6{color:#a5573e;line-height:1.6em;font-family:Georgia,serif}h4,h5,h6{font-size:1em}dt{font-weight:700}table{margin:auto;border-top:2px solid;border-collapse:collapse}table,thead{border-bottom:2px solid}table td+td,table th+th{border-left:1px solid gray}table tr{border-top:1px solid #d3d3d3}td,th{padding:5px 10px;vertical-align:middle}caption.t-above{caption-side:top}caption.t-bottom{caption-side:bottom}th.org-center,th.org-left,th.org-right{text-align:center}td.org-right{text-align:right}td.org-left{text-align:left}td.org-center{text-align:center}code{padding:2px 5px;margin:auto 1px;border:1px solid #ddd;border-radius:3px;background-clip:padding-box;color:#333;font-size:80%}blockquote{margin:1em 2em;padding-left:1em;border-left:3px solid #ccc}kbd{background-color:#f7f7f7;font-size:80%;margin:0 .1em;padding:.1em .6em}.todo{background-color:red;padding:2px}.done,.todo{color:#fff;border-radius:3px;background-clip:padding-box;font-size:80%;font-family:Lucida Console,monospace}.done{background-color:green;padding:3px}.priority{color:orange;font-family:Lucida Console,monospace}#table-of-contents li{clear:both}.tag{font-family:Lucida Console,monospace;font-size:70%;font-weight:400}.tag span{padding:0 5px;float:right;margin-right:5px;border:1px solid #bbb;border-radius:3px;background-clip:padding-box;color:#333;background-color:#eee;line-height:1.6}.timestamp{color:#bebebe;font-size:90%}.timestamp-kwd{color:#5f9ea0}.org-right{margin-left:auto;margin-right:0;text-align:right}.org-left{margin-left:0;margin-right:auto;text-align:left}.org-center{margin-left:auto;margin-right:auto;text-align:center}.underline{text-decoration:underline}#postamble p,#preamble p{font-size:90%;margin:.2em}p.verse{margin-left:3%}pre{border:1px solid #ccc;box-shadow:3px 3px 3px #eee;font-family:Lucida Console,monospace;margin:1.2em;padding:8pt}pre.src{overflow:auto;padding-top:1.2em;position:relative;font-size:80%}pre.src:before{display:block;position:absolute;background-color:#ccccd0;top:0;right:0;padding:.25em .5em;border-bottom-left-radius:8px;border:0;color:#fff;font-size:80%}pre.src:hover:before{display:inline}pre.src-sh:before{content:'sh'}pre.src-bash:before{content:'bash'}pre.src-emacs-lisp:before{content:'Emacs Lisp'}pre.src-R:before{content:'R'}pre.src-org:before{content:'Org'}pre.src-c+:before{content:'C++'}pre.src-c:before{content:'C'}pre.src-html:before{content:'HTML'}.inlinetask{background:#ffc;border:2px solid gray;margin:10px;padding:10px}#org-div-home-and-up{font-size:70%;text-align:right;white-space:nowrap}.linenr{font-size:90%}.code-highlighted{background-color:#ff0}#bibliography{font-size:90%}#bibliography table{width:100%}.creator{display:block}@media (min-width:769px){.creator{display:inline;float:right}}</style>
+
+* Key Finding
+In this lab, we'll use OllyDbg to figure out a password that will
+let us access protected functionality in a very simple
+program. Double click the Lab1.exe file on the desktop to run the
+program. You will see that it gives you three attempts to type a
+working password, then exits. We're going to use OllyDbg to observe
+the operation of this program in order to discover what password(s)
+will work to get us past the check.
+
+** Getting started
+First, launch ollydbg from your desktop icon. You'll see a
+collection of several viewports and a large number of buttons. The
+interface has a fairly steep learning curve for more advanced uses,
+but for the basic operations we'll use today it should be easy to
+operate. For a more in-depth exploration of ollydbg's features and
+UI, take a look at this chapter in [[https://books.google.com/books?id=DhuTduZ-pc4C&lpg=PA181&ots=3dkPSpSagz&dq=ollydbg%20interface&pg=PA182#v=onepage&q=ollydbg%20interface&f=false][Practical Malware Analysis]].
+
+*** Start the program in ollydbg
+To start the program, you can either just run it as before and
+    attach, or you can launch it from ollydbg. In this case, use the
+    File->Open menu item to launch the program. Ollydbg will stop at
+    the program's entry point and wait for instructions from you. If
+    you press the play button ollydbg will run the program without
+    stopping it until either a breakpoint or an exception occurs.
+
+** Finding the important parts
+    Almost all of the art of reverse engineering boils down to finding
+    clever ways to avoid the painful work of reading reams of assembly
+    code. Even a tiny program like this would take hours or days to
+    fully comprehend if you had to figure out all of the details about
+    what it does. Fortunately, we don't really care about that. What
+    we want is much simpler - to locate the password check and figure
+    out how to get past it and see what happens on the other side.
+
+    To do that, we'll use the program's behavior to shortcut the
+    analysis problem and land right where we need to be. The program
+    seems to behave in this way:
+    1. Ask user for a password
+    2. Verify correctness of the password
+       1. If it is correct, do something we haven't seen yet
+       2. If not, give the user two more attempts and then exit.
+          
+    There are several points during this process that could be very
+    helpful to us. We'll use two methods to locate the relevant
+    code. The first and most obvious clue is probably the message
+    that's displayed when the password doesn't match. We can use
+    ollydbg to tell the program to stop when a piece of memory is
+    accessed, so we will find that message in the program's memory and
+    put a breakpoint on it. The second method is to take advantage of
+    the fact that the program stops when it's waiting for our
+    input. We'll run it until it's waiting for input, then break into
+    it with ollydbg and trace the stack up to see what function is
+    called to get input. From there we will find the password check
+    function by tracing.
+
+**** Use ollydbg's analysis features
+     Right-click in the memory window (bottom left part of the screen)
+     and pick "Search for > All referenced strings". This will open a
+     window with an entry for each string reference ollydbg could find
+     in the program. Scan through the list to find the "Access Denied"
+     string, then press Enter to go to that instruction in the
+     disassembler view. At this point, it is probably pretty obvious
+     that we're close to the main part of the program that does the
+     password check. Hold that thought, we're going to go through a
+     couple of other ways to find this point before we continue.
+
+**** Using program's built-in wait points
+     Another way to find the piece of code we want is to recognize
+     that the program is going to get a piece of string data from the
+     system, and then use it later to check the password. Since it has
+     to stop while we type our password, we can simply let it get to
+     that point, then see where it is in the debugger and set a
+     breakpoint.
+     
+     Go ahead and push the restart button (looks like two triangles
+     pointing left) to reload the program. Press play again and wait
+     for it to ask for the password, then go to ollydbg and press the
+     pause button.
+
+     In order to find the part of the code we want, we now need to
+     figure out what function originally called the input
+     function. First, open the threads window in ollydbg by pressing
+     the "T" button. Find the main thread (look in the leftmost column
+     for "Main"). Click that thread, then press Enter to follow the
+     address in the disassembler.
+
+     You will now be looking at the main thread with all views. Go
+     over to the stack view (bottom right corner). This displays all
+     data on the program's stack, which includes the return addresses
+     for each currently active function call (exactly what we
+     want!). There are a large number of functions currently
+     active. Here's where it's important to get the big picture in
+     mind, which is that we're looking for application code specific
+     to the program we're working on. For that reason, we will just
+     scroll through the stack until we find the first instance of a
+     return to code that's in lab1.exe. Scroll down and look at each
+     line that starts with "RETURN from" to find the first one that
+     has lab1 in the name (e.g. "RETURN from msvcrt.7573987B to
+     lab1.00401a5e").
+     
+     Looking at this function, you should see the same interesting
+     code we saw before.
+
+**** Memory breakpoint
+     Sometimes the memory we're searching for doesn't come up
+     automatically in ollydbg's analysis. In that case, we'll have to
+     search for it directly. 
+     
+     Ollydbg allows you to search for data in segments of memory
+     allocated to the process. If you have a segment open in the dump,
+     disassembler, or stack, you can just right click or press Ctrl+B
+     in that section to search the currently visible memory
+     segment. However, most of the time you probably won't know which
+     part of the process's memory has the data you want. In order to
+     search the entire process, you need to open the memory map
+     window. To do this, press the blue "M" button (or press
+     Alt-M). You are now looking at the memory map, which lists all of
+     the memory in use by the process along with various bits of data
+     for each mapped region.
+
+     To search for a string, press Ctrl+B in the memory map window,
+     then type the string you're looking for in the appropriate
+     box. In this case, we're looking for an "Access denied" which is
+     probably plain ASCII, so enter that into the top box.
+
+     Ollydbg will search through the mapped memory in order and list
+     all matches. When you get a match, it will open it in the dump
+     window. You should see your string there. Right click the first
+     byte and select "Breakpoint > Memory". You can just click OK on
+     the dialog that opens up to enter breakpoint details. Now click
+     play on the debugger and type an incorrect password.
+
+     Ollydbg stops when the string is accessed, which is deep in a
+     call stack to write text to the console. Make sure you're in the
+     main thread and use the stack walking technique again from before
+     to find where in lab1.exe this call was made. You're now in the
+     same place you found with the other methods.
+
+** Reversing the password
+    Now we're ready to start digging into the actual password recovery
+    portion of the lab. We've found the point in the code where the
+    password result is checked. What we need to do now is use that
+    entry point to find the actual code that does the password check
+    and analyze it to see what we need to use for a password in order
+    to gain access.
+
+    You should have your debugger paused in the function we found
+    earlier (if not, repeat one of the above methods to find it
+    again). Ollydbg will have already analyzed the code to find
+    function boundaries for you. If you look to the left of the
+    disassembly listing, you'll see a vertical line that ends on the
+    ~RETN~ instruction and goes upward in the listing. Scroll up until
+    you find the end of that line, which will be at a ~PUSH EBP~
+    instruction. This is the entry point of the function. Set a
+    breakpoint here and restart the program.
+
+    After you press play, the program will stop at your
+    breakpoint. You can now step through the code and watch what the
+    program does at various points. We want to see which function
+    calls are I/O related and which are password validation related,
+    so we don't want to descend into them yet. We'll use the ~Step
+    over~ button (also ~F8~) to do this. Press ~F8~ a few times until
+    the program seems to stop responding. It is now waiting for your
+    input. Type a password and press ~Enter~.
+
+*** Reading assembly
+    Because you used the step over function, ollydbg will run the
+    entire input call before pausing the program again. We're now at
+    the next step after the ~fgets~ call. This is where we really want
+    to start paying attention to what happens. Press ~F8~ again until
+    you reach a ~CALL~ instruction.
+
+    If you look at this ~CALL~, you'll see that it takes the string as
+    an argument (it is at the top of the stack in the stack window),
+    and its return value is used to decide how to branch right
+    afterward. Use the arrow keys to navigate down a few instructions
+    to find the ~JZ~ instruction. This instruction is a jump that will
+    happen only if the zero condition flag is set by the previous
+    ~TEST~ instruction. When this instruction is highlighted, you'll
+    see an arrow that appears to the left showing where the jump will
+    land if it happens. In this case, it stops at a ~PUSH~ instruction
+    which loads the address of our "Access denied" string. From this,
+    we can deduce that a return of zero from the function we're
+    stopped at means the password check failed, so our password check
+    probably happens in or below this function.
+
+*** Pulling out the password
+     In order to retrieve the password, we need to watch how it is
+     checked. Press ~F7~ to enter the function we're stopped on.
+
+     Now that we've found a point very close to the target, we should
+     set a breakpoint on it and note the address. Press ~F2~ to set a
+     breakpoint, then press ~:~ and type a name you'll remember for
+     the function (something like 'check-password' works). You can use
+     this later to find this location again.
+
+     Press ~F7~ until you get to the first ~CMP~ (for CoMPare)
+     instruction. If you look in the little space between the
+     disassembly view and the memory dump view, you'll see that
+     ollydbg is helpfully decoding that 0x67 into the ASCII letter
+     'g'. This ~CMP~ instruction is taking the first byte of the
+     argument (which is the password you typed) and comparing it to
+     the letter 'g'.
+
+     Press ~F7~ again to get to the ~JE~ instruction. ~JE~ means Jump
+     if Equal, so this jump will happen only if the previous
+     comparison came out equal. If you look at the target of the jump,
+     it's just a couple of instructions further down and looks very
+     much like the little block of code we just executed. If the jump
+     is not taken, you can see that the ~EAX~ register will be set to
+     zero and the code will jump to a different location. Arrow down
+     to that ~JMP~ instruction to see what happens. Based on this
+     analysis, we can conclude that the first character of our
+     password probably needs to be 'g'.
+
+     Continue in this way until you have recovered the entire
+     password, then run the program outside of the debugger to verify
+     that you have it right.
+
+** The lazy way: patching
+    Sometimes we don't really have to figure out what the password
+    is. If the program is not designed well, it's easier to just patch
+    over the password check and skip it entirely. That's what we're
+    going to do now.
+
+    Restart the program in ollydbg and navigate to the password
+    checking function. If you made a label, you can right click in the
+    disassembly window and select "Search for > Names", then scan down
+    the list until you find your label. Click it and press ~Enter~ to
+    go there. If not, you can go there using the breakpoints window
+    (opened with the blue 'B' button) by selecting the breakpoint and
+    pressing ~Enter~.
+
+    We know from before that our password check fails if this function
+    returns zero. Knowing that, we can just change this function so
+    that it always returns 1, and we should be able to access the
+    hidden features without ever figuring out a valid password. To do
+    this, go down to the end of the function where the ~RETN~
+    instruction is. In the standarc C calling convention, the return
+    value of a function is put into the ~EAX~ register before the
+    function returns. Remember from earlier that an incorrect letter
+    in the password made the function place zero in ~EAX~ just before
+    jumping to the end and returning. If we change the instruction
+    that writes to ~EAX~ so that it puts a 1 there instead, we can
+    cause the call to succeed as long as our first letter is /not/
+    part of the password! 
+
+    Navigate to the fist ~CMP~ instruction, then down to the ~MOV~
+    instruction below it that zeros ~EAX~. Double click that
+    instruction and change the zero to a 1, then click
+    "Assemble". Ollydbg will automatically generate the appropriate
+    machine code for you and patch the memory accordingly. Now press
+    play and enter a password that starts with the wrong letter. You
+    have patched the binary to bypass the password check.
+
+** Recap
+    The main objective of most reverse engineering work is to find
+    what you want without getting bogged down hand tracing heaps of
+    assembly code and data structures. We used several techniques in
+    ollydbg in this lab to find and bypass a password check, with very
+    little actual code tracing.
+
+*** Finding something
+     Use clues from the program you're debugging to get close to the
+     piece of code you want to find. In our case, we used strings that
+     we knew were accessed nearby, and we used the fact that the
+     program had to block while waiting for input to get the password.
+
+     1. Use ollydbg's analysis features to look for references to
+        interesting data (~Search for~ > ~All referenced strings~)
+     2. Use the program's blocking behavior to land us near the
+        function, then follow the call stack back to code we care
+        about.
+     3. Search the program's memory for data we know is used near our
+        point of interest, then set memory breakpoints on it.
+
+*** Patching
+     Sometimes you can get a program to do what you want with a very
+     simple patch. Ollydbg makes on-the-fly patching very easy with
+     its built-in assembler. The main issue with patching is to ensure
+     that your patch fits in the space you have available - you can't
+     move things in a binary without a /lot/ of work, so you have to
+     work within the constraints of what's already there.
+
+*** Tracing
+     If you need to understand an algorithm, there is really no
+     alternative other than to trace it. We traced the password
+     checking algorithm in this lab to determine what password would
+     unlock the program. Real-life tracing is typically much harder
+     than this, but works on basically the same principles: Single
+     step through the code and keep track of what it's doing.
+* References
+  1. Instruction set reference: [[http://ref.x86asm.net][X86Asm.net]]
+  2. [[http://www.ollydbg.de/quickst.htm][Ollydbg Quickstart]]
